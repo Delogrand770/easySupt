@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>easySupt</title>
+
+<link rel=StyleSheet href="style.css" type="text/css">
+<script src="gaia.js"></script>
+<script>
+var draw = {
+	loginPretty: null,
+	ui:function(){
+		html = XU.el('loginHTML').innerHTML;
+		draw.loginPretty = XM.static({title: 'login', body: html , centered: true});
+		XU.el('loginHTML').innerHTML = "";
+	},
+	reposition:function(){
+		XM.reCenter(draw.loginPretty);
+	},
+	go:function(param){
+		document.location.href = param;
+	},
+	ini:function(){
+		draw.ui();
+		document.forms["loginForm"]["email"].focus();		
+		error = draw.getURLParameter('error');
+		if (error){
+			XM.alert({title: 'error', body: '<center>invalid email / password</center>', centered: true, screen: true,});
+		}
+	},
+	validateForm:function(){
+		form = document.forms["loginForm"];
+    email = form["email"].value;
+    pw = form["password"].value;
+		emailregex = new RegExp("^[cC][0-9][0-9][a-zA-Z-]+.[a-zA-Z-]+(.[a-zA-Z-]+@usafa.edu|@usafa.edu)$");
+
+    msg = "";
+    if (!emailregex.test(email)){
+      msg += "<font color='red'>error:</font> <font color='#0099ff'>invalid email format </font><br>c##fname.lname@usafa.edu<br>";
+    }
+    if(pw == ""){
+      msg += "<br><font color='red'>error:</font> <font color='#0099ff'>password field is empty</font><br>";
+    }
+
+    if (msg){
+    	XM.alert({title: 'login error', body: msg, centered: true, screen: true, width: 400});
+    }else{
+    	document.loginForm.submit();
+    }
+  },
+  //http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
+  getURLParameter:function(name){
+  	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+	}
+};
+</script>
+</head>
+
+<body onload="draw.ini()" onresize="draw.reposition()">
+
+<center>
+	<br>
+	<h1>easySupt</h1>
+</center>
+
+<span id="loginHTML" style="display:none;">
+	<form name="loginForm" method="post" action="checklogin.php">
+		<table class="table">
+			<tr>
+				<td style="text-align:right;">email:</td><td><input type="textarea" name="email" class="txt"></td>
+			</tr>
+			<tr>
+				<td>password:</td><td><input type="password" name="password" class="txt" onkeypress="if (event.keyCode == 13){draw.validateForm()}"></td>
+			</tr>
+		</table>
+		<table class="loginTable">
+			<tr>
+				<td><input type="button" value="login" class="btn" onclick="draw.validateForm()"></td>
+				<td><input type="button" value="register" class="btn" onclick="draw.go('register.html')"></td>
+			</tr>
+		</table>
+	</form>
+</span>
+
+</body>
+</html>
+<!--
+
+This is to make our total code 2014 lines long
+
+	-->

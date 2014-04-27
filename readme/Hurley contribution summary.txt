@@ -1,0 +1,3 @@
+Over the course of development, it has mostly been a 50-50 split in effort from both of us.  We rarely do work separately.  Since gavin has written the shell of our html, most of the final implementation is revised by him to make it "pretty" but we have attempted pair programming and separate development and things have worked smoothly so far.
+
+For the second spiral, we almost exclusively worked together. Both of us did even amounts of work.

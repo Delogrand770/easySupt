@@ -1,0 +1,22 @@
+1. Copy the entire project folder into your xampp/htdocs folder
+2. Start Apache server
+3. Start MySQL
+4. Run the ./project/readme/setupDatabase.sql in mysql workbench to setup the database
+5. Navigate your browser to localhost/project/
+6. Register for an account
+7. Login with the registered account
+
+***Our website has only been tested in Chrome
+
+A default account for cs1 with admin privelages
+	email: c14gavin.delphia@usafa.edu
+	pass: red
+
+A default account for cs1 with readonly privelages
+	email: c13austin.hurley@usafa.edu
+	pass: red
+
+If you are looking for emails to test the roster functionality look in ./project/readme/design/emails.txt for an already made list.
+The roster accepts either the outlook format you see in the text file or semicolon seperated emails.
+
+Also any email you submit to the roster can login to the database as a readonly user using their email and the password "qweep"

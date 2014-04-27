@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>easySupt</title>
+
+<link rel=StyleSheet href="style.css" type="text/css">
+<script src="gaia.js"></script>
+<script>
+var draw = {
+	registerPretty: null,
+	ui:function(){
+		html = XU.el('registerHTML').innerHTML;
+		draw.registerPretty = XM.static({title: 'register', body: html , centered: true, width: 300});
+		XU.el('registerHTML').innerHTML = "";
+	},
+	reposition:function(){
+		XM.reCenter(draw.registerPretty);
+	},
+	go:function(param){
+		document.location.href = param;
+	},
+	buildSquadSelect:function(){
+		squadSelect = document.forms["registrationForm"]["squadron"];
+		for (i = 1; i <= 40; i++) {
+			squadSelect.options.add(new Option(i, i));
+		}
+	},
+	ini:function(){
+		draw.buildSquadSelect();
+		draw.ui();
+		document.forms["registrationForm"]["email"].focus();
+		error = draw.getURLParameter('error');
+		if (error){
+			XM.alert({title: 'error', 
+				body: '<Center>email address has already been registered</center>', centered: true, screen: true,});
+		}
+	},
+	validateForm:function(){
+		form = document.forms["registrationForm"];
+    email = form["email"].value;
+    pw = form["password"].value;
+    confirmpw = form["confirmpassword"].value;
+    squadron = form["squadron"].value;
+		emailregex = new RegExp("^[cC][0-9][0-9][a-zA-Z-]+.[a-zA-Z-]+(.[a-zA-Z-]+@usafa.edu|@usafa.edu)$");
+
+    msg = "";
+    if (!emailregex.test(email)){
+      msg += "<font color='red'>error:</font> <font color='#0099ff'>invalid email format </font><br>c##fname.lname@usafa.edu<br>";
+    }
+    if (pw != confirmpw){
+      msg += "<br><font color='red'>error:</font> <font color='#0099ff'>passwords do not match<br>";
+    }
+    if(pw == "" || confirmpw == ""){
+      msg += "<br><font color='red'>error:</font> <font color='#0099ff'>one or more password fields are empty<br>";
+    }
+
+    if (msg){
+    	XM.alert({title: 'register error', body: msg, centered: true, screen: true, width: 400});
+    }else{
+    	document.registrationForm.submit();
+    }
+  },
+  //http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript
+  getURLParameter:function(name){
+  	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [,""])[1].replace(/\+/g, '%20')) || null;
+	}
+};
+</script>
+</head>
+
+<body onload="draw.ini()" onresize="draw.reposition()">
+
+<center>
+	<br>
+	<h1>easySupt</h1>
+</center>
+
+<span id="registerHTML" style="display:none;">
+	<form name="registrationForm" method="post" action="register.php">
+		email: <br> <input type="text" name="email" class="txt"/> <br/>
+		password: <br> <input type="password" name="password" class="txt"/> <br/>
+		confirm password: <br> <input type="password" name="confirmpassword" class="txt"/> <br/>
+		squadron: <select name="squadron" class="txt"></select>
+		</br>
+		</br>
+		<center>
+			<input type="button" value="submit" class="btn" onclick="draw.validateForm()">
+			<input type="button" value="cancel" onclick="draw.go('index.html')" class="btn">
+		</center>
+	</form>
+</span>
+	 
+</body>
+</html>

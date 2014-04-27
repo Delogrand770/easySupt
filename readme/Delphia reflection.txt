@@ -1,0 +1,5 @@
+Spiral 1
+I learned a ton about php and I'm quite excited I have. It has been a lot of fun designing software with someone else. Austin has a lot of great ideas and it is cool to see our vision come together. I wasn't a huge fan of the initial design process. It seemed like a lot of busy work. I can see now how useful it was since it acts as a very complete guide as to what should be done next and how things should function.
+
+Spiral 2
+Wow php can be incredibly annoying! I really liked seeing our project come together into something that is actually usable. I enjoyed learning about the development process of software and it has opened my eyes to the amount of work required for even a simple idea to be implemented.
